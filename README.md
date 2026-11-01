@@ -1,8 +1,6 @@
 # Kopi dan Nyemil
 
-Kopi dan Nyemil adalah aplikasi mobile pemesanan kopi dan camilan berbasis Android yang dikembangkan menggunakan bahasa pemrograman Kotlin dan Android Studio. Proyek ini dibuat untuk memenuhi tugas Ujian Akhir Semester (UAS) mata kuliah Pemrograman Aplikasi Mobile (PAM), dengan mengimplementasikan seluruh alur dan tampilan antarmuka sesuai rancangan wireframe yang telah ditentukan.
-
-## Fitur
+Kopi dan Nyemil adalah aplikasi mobile pemesanan kopi dan camilan berbasis Android yang dikembangkan menggunakan bahasa pemrograman Kotlin dan Android Studio. Proyek ini dibuat untuk memenuhi tugas Ujian Akhir Semester (UAS) mata kuliah Pengembangan Aplikasi Mobile.
 
 - Autentikasi Pengguna:
   - Splash Screen: Tampilan pembuka dengan logo aplikasi, judul, tagline, dan tombol untuk memulai alur. Jika pengguna telah masuk, aplikasi langsung mengarahkan ke halaman Home.
@@ -140,13 +138,10 @@ Berikut merupakan referensi tangkapan layar antarmuka aplikasi:
 | 08. Konfirmasi Pesanan | ![Konfirmasi Pesanan](docs/screenshots/08-konfirmasi.png) |
 | 09. Profile Pengguna | ![Profile](docs/screenshots/09-profile.png) |
 
-### Referensi Wireframe
-Rancangan awal wireframe tugas dapat dilihat pada berkas `docs/wireframe.png`.
-
 ## Identitas Pembuat
 
-- Nama Mahasiswa: [Nama Lengkap Anda]
-- NIM: [Nomor Induk Mahasiswa]
-- Mata Kuliah: Pemrograman Aplikasi Mobile (PAM)
-- Program Studi: [Program Studi Anda]
-- Perguruan Tinggi: [Nama Universitas / Institut]
+- Nama Mahasiswa: Damar Alam
+- NIM: 1247050073
+- Mata Kuliah: Pengembangan Aplikasi Mobile 
+- Program Studi: Teknik Informatika
+
