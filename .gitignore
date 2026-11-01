@@ -9,3 +9,5 @@ app/build/
 .idea/
 .cxx/
 captures/
+gradle-daemon-jvm.properties
+gradle/gradle-daemon-jvm.properties
