@@ -2,75 +2,139 @@ package com.kopidannyemil.app
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kopidannyemil.app.databinding.ActivityOrderBinding
-import com.kopidannyemil.app.util.SessionManager
+import com.kopidannyemil.app.penyimpanan.PenyimpananKeranjang
+import com.kopidannyemil.app.penyimpanan.PenyimpananPengiriman
+import com.kopidannyemil.app.penyimpanan.PenyimpananSesi
+import com.kopidannyemil.app.util.formatRupiah
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderBinding
-    private lateinit var sessionManager: SessionManager
+    private lateinit var penyimpananSesi: PenyimpananSesi
+    private lateinit var penyimpananKeranjang: PenyimpananKeranjang
+    private lateinit var penyimpananPengiriman: PenyimpananPengiriman
+
+    companion object {
+        const val EXTRA_TOTAL_ITEM = "extra_total_item"
+        const val EXTRA_TOTAL_HARGA = "extra_total_harga"
+        private const val KUNCI_ALAMAT = "state_alamat"
+        private const val KUNCI_PATOKAN = "state_patokan"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sessionManager = SessionManager(this)
+        penyimpananSesi = PenyimpananSesi(this)
+        penyimpananKeranjang = PenyimpananKeranjang(this)
+        penyimpananPengiriman = PenyimpananPengiriman(this)
 
-        setupData()
-        setupListeners()
+        savedInstanceState?.let {
+            binding.etAlamat.setText(it.getString(KUNCI_ALAMAT, ""))
+            binding.etPatokan.setText(it.getString(KUNCI_PATOKAN, ""))
+        }
+
+        binding.etNamaLengkapOrder.doAfterTextChanged {
+            binding.tilNamaLengkapOrder.error = null
+        }
+
+        binding.etAlamat.doAfterTextChanged {
+            binding.tilAlamat.error = null
+        }
+
+        binding.btnLihatMenu.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            }
+            startActivity(intent)
+            finish()
+        }
+
+        binding.btnOrderDanKirim.setOnClickListener {
+            prosesOrder()
+        }
+
         setupBottomNavigation()
     }
 
     override fun onResume() {
         super.onResume()
         binding.bottomNavigation.selectedItemId = R.id.nav_order
-        setupData()
+        perbaruiTampilan()
     }
 
-    private fun setupData() {
-        val selectedItem = sessionManager.getSelectedMenu()
-        binding.tvOrderItemName.text = selectedItem.name
-        binding.tvOrderItemPrice.text = selectedItem.priceFormatted
-        binding.ivOrderItemIcon.setImageResource(selectedItem.iconResId)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KUNCI_ALAMAT, binding.etAlamat.text.toString())
+        outState.putString(KUNCI_PATOKAN, binding.etPatokan.text.toString())
+    }
 
-        val currentName = sessionManager.getUserName()
-        if (binding.etNamaLengkapOrder.text.isNullOrEmpty()) {
-            binding.etNamaLengkapOrder.setText(currentName)
-        }
+    private fun perbaruiTampilan() {
+        if (penyimpananKeranjang.apakahKosong()) {
+            binding.layoutKeranjangKosong.visibility = View.VISIBLE
+            binding.layoutKontenOrder.visibility = View.GONE
+        } else {
+            binding.layoutKeranjangKosong.visibility = View.GONE
+            binding.layoutKontenOrder.visibility = View.VISIBLE
 
-        if (binding.etAlamat.text.isNullOrEmpty()) {
-            binding.etAlamat.setText(sessionManager.getDeliveryAddress())
-        }
+            val items = penyimpananKeranjang.ambilSemuaItem()
+            binding.rvItemPesanan.layoutManager = LinearLayoutManager(this)
+            binding.rvItemPesanan.adapter = PesananItemAdapter(items)
 
-        if (binding.etPatokan.text.isNullOrEmpty()) {
-            binding.etPatokan.setText(sessionManager.getDeliveryNote())
+            val totalHarga = penyimpananKeranjang.hitungTotalHarga()
+            binding.tvTotalHargaCard.text = formatRupiah(totalHarga)
+
+            if (binding.etNamaLengkapOrder.text.isNullOrEmpty()) {
+                binding.etNamaLengkapOrder.setText(penyimpananSesi.ambilNamaLengkap())
+            }
+
+            if (binding.etAlamat.text.isNullOrEmpty()) {
+                binding.etAlamat.setText(penyimpananPengiriman.ambilAlamat())
+            }
+
+            if (binding.etPatokan.text.isNullOrEmpty()) {
+                binding.etPatokan.setText(penyimpananPengiriman.ambilPatokan())
+            }
         }
     }
 
-    private fun setupListeners() {
-        binding.btnOrderDanKirim.setOnClickListener {
-            val nama = binding.etNamaLengkapOrder.text.toString().trim()
-            val alamat = binding.etAlamat.text.toString().trim()
-            val patokan = binding.etPatokan.text.toString().trim()
+    private fun prosesOrder() {
+        val nama = binding.etNamaLengkapOrder.text.toString().trim()
+        val alamat = binding.etAlamat.text.toString().trim()
+        val patokan = binding.etPatokan.text.toString().trim()
 
-            if (nama.isEmpty()) {
-                Toast.makeText(this, "Nama lengkap wajib diisi", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+        var adaError = false
 
-            if (alamat.isEmpty()) {
-                Toast.makeText(this, "Alamat pengiriman wajib diisi", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            sessionManager.setUserName(nama)
-            sessionManager.saveDeliveryInfo(alamat, patokan)
-
-            val intent = Intent(this, ConfirmationActivity::class.java)
-            startActivity(intent)
+        if (nama.isEmpty()) {
+            binding.tilNamaLengkapOrder.error = getString(R.string.error_wajib_diisi)
+            adaError = true
         }
+
+        if (alamat.isEmpty()) {
+            binding.tilAlamat.error = getString(R.string.error_alamat_kosong)
+            adaError = true
+        }
+
+        if (adaError) return
+
+        val totalItem = penyimpananKeranjang.hitungTotalKuantitas()
+        val totalHarga = penyimpananKeranjang.hitungTotalHarga()
+
+        penyimpananSesi.perbaruiNamaLengkap(nama)
+        penyimpananPengiriman.simpan(alamat, patokan)
+        penyimpananKeranjang.kosongkan()
+
+        val intent = Intent(this, ConfirmationActivity::class.java).apply {
+            putExtra(EXTRA_TOTAL_ITEM, totalItem)
+            putExtra(EXTRA_TOTAL_HARGA, totalHarga)
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun setupBottomNavigation() {
@@ -78,14 +142,18 @@ class OrderActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    val intent = Intent(this, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    }
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_order -> true
                 R.id.nav_profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    finish()
+                    val intent = Intent(this, ProfileActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    }
+                    startActivity(intent)
                     true
                 }
                 else -> false
