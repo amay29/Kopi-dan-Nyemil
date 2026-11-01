@@ -12,7 +12,6 @@ class PenyimpananAkun(context: Context) {
     companion object {
         private const val NAMA_PREF = "daftar_akun_pref"
         private const val KUNCI_AKUN = "data_akun"
-        private const val KUNCI_DEMO_DIBUAT = "demo_dibuat"
     }
 
     init {
@@ -20,18 +19,15 @@ class PenyimpananAkun(context: Context) {
     }
 
     private fun inisialisasiAkunDemo() {
-        if (!prefs.getBoolean(KUNCI_DEMO_DIBUAT, false)) {
-            val akunDemo = Akun(
-                namaLengkap = "Pengguna Demo",
-                username = "demo",
-                kataSandi = "demo123"
-            )
-            val daftar = ambilSemuaAkun().toMutableList()
-            if (daftar.none { it.username.equals(akunDemo.username, ignoreCase = true) }) {
-                daftar.add(akunDemo)
-                simpanDaftarAkun(daftar)
-            }
-            prefs.edit().putBoolean(KUNCI_DEMO_DIBUAT, true).apply()
+        val akunDemo = Akun(
+            namaLengkap = "Damar Alam",
+            username = "damar",
+            kataSandi = "damar123"
+        )
+        val daftar = ambilSemuaAkun().toMutableList()
+        if (daftar.none { it.username.equals(akunDemo.username, ignoreCase = true) }) {
+            daftar.add(akunDemo)
+            simpanDaftarAkun(daftar)
         }
     }
 

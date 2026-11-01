@@ -93,9 +93,9 @@ com.kopidannyemil.app/
 
 ### Akun Pengujian (Demo)
 Aplikasi telah menyediakan akun demo bawaan yang dapat langsung digunakan pada halaman Login:
-- Username: `demo`
-- Kata Sandi: `demo123`
-- Nama Pengguna: `Pengguna Demo`
+- Username: `damar`
+- Kata Sandi: `damar123`
+- Nama Pengguna: `Damar Alam`
 
 ### Menjalankan Melalui Terminal (Command Line)
 Untuk melakukan kompilasi file APK secara mandiri:
@@ -142,6 +142,5 @@ Berikut merupakan referensi tangkapan layar antarmuka aplikasi:
 
 - Nama Mahasiswa: Damar Alam
 - NIM: 1247050073
-- Mata Kuliah: Pengembangan Aplikasi Mobile 
+- Mata Kuliah: Pengembangan Aplikasi Mobile
 - Program Studi: Teknik Informatika
-
