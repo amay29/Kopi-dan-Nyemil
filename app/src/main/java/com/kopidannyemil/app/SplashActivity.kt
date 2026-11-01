@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kopidannyemil.app.databinding.ActivitySplashBinding
 import com.kopidannyemil.app.penyimpanan.PenyimpananAkun
-import com.kopidannyemil.app.penyimpanan.PenyimpananSesi
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -14,14 +13,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         PenyimpananAkun(this)
-        val sesi = PenyimpananSesi(this)
-
-        if (sesi.apakahSudahMasuk()) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
-        }
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)

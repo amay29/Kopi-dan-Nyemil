@@ -3,7 +3,7 @@
 Kopi dan Nyemil adalah aplikasi mobile pemesanan kopi dan camilan berbasis Android yang dikembangkan menggunakan bahasa pemrograman Kotlin dan Android Studio. Proyek ini dibuat untuk memenuhi tugas Ujian Akhir Semester (UAS) mata kuliah Pengembangan Aplikasi Mobile.
 
 - Autentikasi Pengguna:
-  - Splash Screen: Tampilan pembuka dengan logo aplikasi, judul, tagline, dan tombol untuk memulai alur. Jika pengguna telah masuk, aplikasi langsung mengarahkan ke halaman Home.
+  - Splash Screen: Tampilan pembuka dengan logo aplikasi, judul, tagline, dan tombol Start now untuk memulai alur menuju halaman pilihan autentikasi.
   - Welcome / Sign Up: Halaman pilihan autentikasi untuk melanjutkan ke pendaftaran akun baru atau masuk ke akun terdaftar.
   - Register: Form pendaftaran akun baru dengan validasi nama lengkap, keunikan username, dan panjang kata sandi minimal 6 karakter.
   - Login: Form masuk dengan pencocokan username dan kata sandi terhadap akun terdaftar, dilengkapi pesan kesalahan pada field serta fitur toggle sembunyikan/tampilkan kata sandi.
