@@ -1,6 +1,6 @@
 # Kopi dan Nyemil
 
-Aplikasi mobile pemesanan kopi dan camilan berbasis Android yang dibuat berdasarkan wireframe tugas UAS Pemrograman Aplikasi Mobile (PAM).
+Aplikasi mobile pemesanan kopi dan camilan berbasis Android yang dibuat untuk memenuhi tugas UAS Pemrograman Aplikasi Mobile (PAM).
 
 ## Deskripsi Aplikasi
 Kopi dan Nyemil adalah aplikasi pemesanan makanan dan minuman sederhana. Aplikasi ini memungkinkan pengguna untuk melihat daftar menu kopi dan camilan, mengubah profil nama pengguna, mengisi alamat pengiriman, serta menerima konfirmasi pesanan. Aplikasi menggunakan data statis (dummy data) dan SharedPreferences untuk menyimpan data pengguna tanpa memerlukan database eksternal.
