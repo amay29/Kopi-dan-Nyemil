@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:padding="28dp">
+
+    <LinearLayout
+        android:id="@+id/centerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartNow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/bg_circle_logo">
+
+            <ImageView
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_coffee_logo"
+                app:tint="@color/white" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvAppTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tvTagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/tagline"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStartNow"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_button_primary"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/start_now"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
