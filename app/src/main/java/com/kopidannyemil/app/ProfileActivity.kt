@@ -2,21 +2,26 @@ package com.kopidannyemil.app
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.kopidannyemil.app.databinding.ActivityProfileBinding
-import com.kopidannyemil.app.util.SessionManager
+import com.kopidannyemil.app.penyimpanan.PenyimpananAkun
+import com.kopidannyemil.app.penyimpanan.PenyimpananSesi
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var sessionManager: SessionManager
+    private lateinit var penyimpananSesi: PenyimpananSesi
+    private lateinit var penyimpananAkun: PenyimpananAkun
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sessionManager = SessionManager(this)
+        penyimpananSesi = PenyimpananSesi(this)
+        penyimpananAkun = PenyimpananAkun(this)
 
         setupData()
         setupListeners()
@@ -26,37 +31,67 @@ class ProfileActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.bottomNavigation.selectedItemId = R.id.nav_profile
+        setupData()
     }
 
     private fun setupData() {
-        val currentName = sessionManager.getUserName()
-        val username = sessionManager.getUsername()
+        val namaLengkap = penyimpananSesi.ambilNamaLengkap().ifEmpty { getString(R.string.default_user_name) }
+        val username = penyimpananSesi.ambilUsername()
 
-        binding.tvGreetingProfile.text = "Halo $currentName,"
-        binding.etNama.setText(currentName)
-        binding.tvUsernameDisplay.text = if (username.isNotEmpty()) "@$username" else "@user"
+        binding.tvGreetingProfile.text = "Halo $namaLengkap,"
+        binding.tvNamaLengkapDisplay.text = namaLengkap
+        binding.tvUsernameDisplay.text = if (username.isNotEmpty()) "@$username" else "@pengguna"
+        binding.etNama.setText(namaLengkap)
+        binding.tvAvatarInitials.text = buatInisialNama(namaLengkap)
+    }
+
+    private fun buatInisialNama(nama: String): String {
+        val bagian = nama.trim().split(" ").filter { it.isNotEmpty() }
+        return when {
+            bagian.isEmpty() -> "U"
+            bagian.size == 1 -> bagian[0].take(1).uppercase()
+            else -> (bagian[0].take(1) + bagian[1].take(1)).uppercase()
+        }
     }
 
     private fun setupListeners() {
+        binding.etNama.doAfterTextChanged {
+            binding.tilNama.error = null
+        }
+
         binding.btnSave.setOnClickListener {
-            val newName = binding.etNama.text.toString().trim()
-            if (newName.isEmpty()) {
-                Toast.makeText(this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            val namaBaru = binding.etNama.text.toString().trim()
+            if (namaBaru.isEmpty()) {
+                binding.tilNama.error = getString(R.string.error_wajib_diisi)
                 return@setOnClickListener
             }
 
-            sessionManager.setUserName(newName)
-            binding.tvGreetingProfile.text = "Halo $newName,"
-            Toast.makeText(this, "Profil berhasil disimpan", Toast.LENGTH_SHORT).show()
+            penyimpananSesi.perbaruiNamaLengkap(namaBaru)
+            penyimpananAkun.perbaruiNamaPengguna(penyimpananSesi.ambilUsername(), namaBaru)
+
+            setupData()
+            Snackbar.make(binding.root, getString(R.string.profil_tersimpan), Snackbar.LENGTH_SHORT).show()
         }
 
         binding.btnLogout.setOnClickListener {
-            sessionManager.logout()
-            val intent = Intent(this, WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+            tampilkanDialogLogout()
         }
+    }
+
+    private fun tampilkanDialogLogout() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.konfirmasi_logout_judul))
+            .setMessage(getString(R.string.konfirmasi_logout_pesan))
+            .setPositiveButton(getString(R.string.ya_keluar)) { _, _ ->
+                penyimpananSesi.keluar()
+                val intent = Intent(this, WelcomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton(getString(R.string.batal), null)
+            .show()
     }
 
     private fun setupBottomNavigation() {
@@ -64,13 +99,17 @@ class ProfileActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    val intent = Intent(this, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    }
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_order -> {
-                    startActivity(Intent(this, OrderActivity::class.java))
-                    finish()
+                    val intent = Intent(this, OrderActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    }
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_profile -> true

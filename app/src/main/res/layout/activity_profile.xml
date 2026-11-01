@@ -19,27 +19,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="24dp"
-            android:paddingTop="28dp"
+            android:paddingTop="24dp"
             android:paddingBottom="24dp">
 
             <TextView
                 android:id="@+id/tvGreetingProfile"
+                style="@style/TextAppearance.KopiDanNyemil.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:text="Halo Nama,"
-                android:textColor="@color/text_primary"
-                android:textSize="26sp" />
+                android:text="Halo Pengguna," />
 
             <TextView
                 android:id="@+id/tvProfileTitle"
+                style="@style/TextAppearance.KopiDanNyemil.TitleMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/profile_saya"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp" />
+                android:layout_marginTop="16dp"
+                android:text="@string/profile_saya" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,77 +45,92 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/bg_circle_logo">
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:background="@drawable/bg_avatar_circle"
+                    android:elevation="2dp">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                    <TextView
+                        android:id="@+id/tvAvatarInitials"
+                        style="@style/TextAppearance.KopiDanNyemil.TitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:contentDescription="@string/profile_saya"
-                        android:src="@drawable/ic_nav_profile"
-                        app:tint="@color/white" />
+                        android:text="U"
+                        android:textColor="@color/white"
+                        android:textSize="32sp" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tvUsernameDisplay"
+                    android:id="@+id/tvNamaLengkapDisplay"
+                    style="@style/TextAppearance.KopiDanNyemil.TitleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/tvUsernameDisplay"
+                    style="@style/TextAppearance.KopiDanNyemil.BodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/text_secondary" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvProfileSetting"
+                style="@style/TextAppearance.KopiDanNyemil.TitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/profile_setting"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:textColor="@color/text_primary" />
 
-            <EditText
-                android:id="@+id/etNama"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNama"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_input_field"
-                android:fontFamily="sans-serif"
                 android:hint="@string/nama_hint"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName|textCapWords"
-                android:paddingHorizontal="18dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_muted"
-                android:textSize="15sp" />
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_badge_name"
+                app:startIconTint="@color/text_secondary">
 
-            <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/bg_button_primary"
-                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/btn_dark"
                 android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:cornerRadius="14dp" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/bg_button_outlined"
-                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="12dp"
                 android:text="@string/logout"
                 android:textAllCaps="false"
                 android:textColor="@color/btn_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:cornerRadius="14dp"
+                app:strokeColor="@color/border_stroke"
+                app:strokeWidth="1.5dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -130,9 +141,6 @@
         android:layout_height="64dp"
         android:background="@color/surface"
         app:elevation="8dp"
-        app:itemIconTint="@color/bottom_nav_color_selector"
-        app:itemTextColor="@color/bottom_nav_color_selector"
-        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
