@@ -33,36 +33,32 @@
 
         <TextView
             android:id="@+id/tvAppTitle"
+            style="@style/TextAppearance.KopiDanNyemil.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/app_name"
-            android:textColor="@color/text_primary"
-            android:textSize="28sp" />
+            android:text="@string/app_name" />
 
         <TextView
             android:id="@+id/tvTagline"
+            style="@style/TextAppearance.KopiDanNyemil.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/tagline"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:text="@string/tagline" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStartNow"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_button_primary"
-        android:fontFamily="sans-serif-medium"
+        android:backgroundTint="@color/btn_dark"
         android:text="@string/start_now"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:cornerRadius="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

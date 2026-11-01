@@ -10,31 +10,44 @@
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_circle_logo">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_coffee_logo"
+                app:tint="@color/white" />
+        </FrameLayout>
+
         <TextView
             android:id="@+id/tvSignUpTitle"
+            style="@style/TextAppearance.KopiDanNyemil.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
             android:text="@string/sign_up"
-            android:textColor="@color/text_primary"
             android:textSize="32sp" />
 
         <TextView
             android:id="@+id/tvSignUpDesc"
+            style="@style/TextAppearance.KopiDanNyemil.BodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginTop="14dp"
             android:lineSpacingExtra="4dp"
             android:text="@string/sign_up_desc"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textColor="@color/text_secondary" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,28 +60,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@drawable/bg_button_primary"
-            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="@color/btn_dark"
             android:text="@string/register"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:cornerRadius="14dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="14dp"
-            android:background="@drawable/bg_button_outlined"
-            android:fontFamily="sans-serif-medium"
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/btn_dark"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:cornerRadius="14dp"
+            app:strokeColor="@color/btn_dark"
+            app:strokeWidth="1.5dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
