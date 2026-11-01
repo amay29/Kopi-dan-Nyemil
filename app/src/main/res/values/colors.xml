@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1C1917</color>
+    <color name="primary_dark">#12100E</color>
+    <color name="primary_coffee">#6F4E37</color>
+    <color name="accent_warm">#E8B282</color>
+    <color name="accent_warm_light">#FFF5EB</color>
+    <color name="accent_peach">#F8C8A0</color>
+    <color name="bg_main">#FAF8F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F4EFEA</color>
+    <color name="border_stroke">#DDD7D0</color>
+    <color name="text_primary">#1C1917</color>
+    <color name="text_secondary">#78716C</color>
+    <color name="text_muted">#A8A29E</color>
+    <color name="btn_dark">#1C1917</color>
+    <color name="btn_dark_pressed">#332E2B</color>
+    <color name="success_green">#7ED6A5</color>
+    <color name="success_green_dark">#2D6A4F</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="nav_active">#1C1917</color>
+    <color name="nav_inactive">#9E9E9E</color>
+    <color name="tag_bg">#FFF1E6</color>
+</resources>

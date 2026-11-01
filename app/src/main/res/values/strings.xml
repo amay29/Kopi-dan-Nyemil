@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kopi dan Nyemil</string>
+    <string name="tagline">Get a taste of your wish</string>
+    <string name="start_now">Start now</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_desc">Join as a member &amp; experience more fun from various meal at mesen_gube marketing app</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="login_user">Login User</string>
+    <string name="username_hint">username</string>
+    <string name="password_hint">password</string>
+    <string name="nama_lengkap_hint">nama lengkap</string>
+    <string name="makanan">Makanan</string>
+    <string name="profile_saya">Profile Saya</string>
+    <string name="profile_setting">Profile Setting</string>
+    <string name="nama_hint">nama</string>
+    <string name="save">Save</string>
+    <string name="alamat_title">Alamat</string>
+    <string name="patokan_hint">Patokan atau detail lengkap</string>
+    <string name="order_dan_kirim">Order dan Kirim</string>
+    <string name="order_success_msg">Terima kasih sudah memesan tunggu aja sebentar kurir kami segera mengantarkan pesananmu!</string>
+    <string name="oke">Oke</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_order">Order</string>
+    <string name="nav_profile">Profile</string>
+    <string name="pesan">Pesan</string>
+    <string name="logout">Logout</string>
+    <string name="default_user_name">Budi</string>
+</resources>
